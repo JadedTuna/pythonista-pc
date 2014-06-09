@@ -19,6 +19,7 @@ GRAVITY    = (0, 0, 0)
 STROKE_WIDTH = 0
 
 def text(txt, font_name, font_size, x, y, alignment):
+    y = size[1] - y
     screen.blit(pygame.font.SysFont("Ubuntu Mono", 14).render(txt, 1, TINT_COLOR), (x, y))
 
 def gravity():
@@ -31,6 +32,7 @@ def background(r, g, b):
 def blend_mode(): pass
 
 def ellipse(x, y, w, h):
+    y = size[1] - (y + h)
     pygame.draw.ellipse(screen, FILL_COLOR, (x, y, w, h))
 
 def stroke_weight(line_width):
@@ -73,6 +75,7 @@ def image(name, x, y, w, h):
     screen.blit(img, (x, y))
 
 def rect(x, y, w, h):
+    y = size[1] - (y + h)
     pygame.draw.rect(screen, FILL_COLOR, (x, y, w, h))
 
 def fill(r, g, b, a=1.0):
@@ -111,11 +114,13 @@ def run(scene_obj, orientation, frame_interval, anti_alias):
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_pressed = True
                 x, y = event.pos
+                y = size[1] - y
                 scene_obj._touch_began(x, y, id)
                 prev = (x, y)
 
             elif event.type == v.MOUSEMOTION and mouse_pressed:
                 x, y = event.pos
+                y = size[1] - y
                 id = randid()
                 scene_obj._touch_moved(x, y, prev[0], prev[1], id)
 
@@ -123,6 +128,7 @@ def run(scene_obj, orientation, frame_interval, anti_alias):
                 mouse_pressed = False
                 x, y = event.pos
                 id = randid()
+                y = size[1] - y
                 scene_obj._touch_ended(x, y, id)
 
         scene_obj._draw(0)
