@@ -1,4 +1,4 @@
-###ACHTUNG!
+###Note:
 ###This project is outdated! Check https://github.com/Vik2015/pcista instead
 
 --------------
